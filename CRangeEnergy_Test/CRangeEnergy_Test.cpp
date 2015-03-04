@@ -9,7 +9,7 @@
 
 //http://stackoverflow.com/questions/17333/most-effective-way-for-float-and-double-comparison
 bool AreSame(double a, double b) {
-	return std::fabs(a - b) < 1E-8;//std::numeric_limits<double>::epsilon();
+	return std::fabs(a - b) < 1E-10;//std::numeric_limits<double>::epsilon();
 }
 
 
