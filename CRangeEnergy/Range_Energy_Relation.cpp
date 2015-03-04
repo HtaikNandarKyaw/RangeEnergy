@@ -67,15 +67,15 @@ while(dKE>0.00005)
 
 {
 
-    if(Range > R0)
+	if(Range > R0)
 
-        {
+		{
 
 	KE = KE + dKE;
 
 	}
 
-    else
+	else
 
 	{
 
@@ -107,9 +107,9 @@ while(dKE>0.00005)
 
 
 
-    {
+	{
 
-        dKE = dKE/10.0;
+		dKE = dKE/10.0;
 
 	KE = KE0+(KE-KE0)*(Range-R0)/(return_R-R0); 
 
@@ -124,7 +124,7 @@ while(dKE>0.00005)
 
 	}
 
-    
+	
 
 
 	R0 = function1(Mass,KE,Z,D,r);
@@ -151,7 +151,7 @@ while(dKE>0.00005)
 
 
 
-    KE0 = KE;
+	KE0 = KE;
 
 }
 
@@ -170,10 +170,10 @@ P = sqrt(E*E-Mass*Mass);
 
 return KE;
 
-    
+	
 
 
-    
+	
 
 
 }
@@ -303,64 +303,64 @@ double function1(double Mass,double KE,int Z,double D,double r)
 
 {
 
-    
+	
 
 
-    double R,KEM,E,P,B,Rp,FX,Cz,Mp,D0,Rs,Rw,F,R1,R2,CPS,CPM,CF;
+	double R,KEM,E,P,B,Rp,FX,Cz,Mp,D0,Rs,Rw,F,R1,R2,CPS,CPM,CF;
 
 	double LKEM,MKEM;
 
-    
+	
 
 
-    Mp = 938.272;
+	Mp = 938.272;
 
    
 
 
-    D0 = 3.815;
+	D0 = 3.815;
 
-    CPS = 1;
+	CPS = 1;
 
-    CPM = 1;
+	CPM = 1;
 
-    
+	
 
 
 	Cz = 0;
 
 	Rs = 0;
 
-    CF = 1;
+	CF = 1;
 
 
 
 
-    if(KE <= 0.0)
+	if(KE <= 0.0)
 
-    {
+	{
 
-        R = 0.0;
-
-
+		R = 0.0;
 
 
-        return R;
-
-    }
-
-    
 
 
-    KEM = KE/Mass;
+		return R;
 
-    E = Mass + KE;
+	}
 
-    P = sqrt(E*E-Mass*Mass);
+	
 
-    B = P/E;
 
-    LKEM = log10(KEM);
+	KEM = KE/Mass;
+
+	E = Mass + KE;
+
+	P = sqrt(E*E-Mass*Mass);
+
+	B = P/E;
+
+	LKEM = log10(KEM);
 
 	MKEM = log(KE*938.272/Mass);
 
@@ -371,7 +371,7 @@ double function1(double Mass,double KE,int Z,double D,double r)
 
 	{
 
-	    Rs = 479.210*pow(KEM,0.675899);
+		Rs = 479.210*pow(KEM,0.675899);
 
 	}
 
@@ -750,7 +750,7 @@ rate = exp(rate);
 
  Rp = Rs/F;
 
-    
+	
 
 
    
@@ -760,12 +760,12 @@ rate = exp(rate);
 
    {
 
-       FX = 137.0*B/Z;
+	   FX = 137.0*B/Z;
 
-       
+	   
 
 
-       if(FX<=0.5)
+	   if(FX<=0.5)
 
 	{
 
@@ -779,11 +779,11 @@ rate = exp(rate);
 
 	   Cz =  0.002624371
 
-	    -0.081622520*FX
+		-0.081622520*FX
 
-	    +0.643381535*FX*FX
+		+0.643381535*FX*FX
 
-	    -0.903648583*FX*FX*FX
+		-0.903648583*FX*FX*FX
 
 	+0.697505012*FX*FX*FX*FX
 
@@ -809,18 +809,18 @@ rate = exp(rate);
 
    {
 
-       Cz = 0.0;
+	   Cz = 0.0;
 
    }
 
-    
+	
 
 
-    R1 = CPS*Rp/(Z*Z)/Mp*Mass;
+	R1 = CPS*Rp/(Z*Z)/Mp*Mass;
 
-    R2 = CPM*Mass/Mp*Cz*pow(Z,2.0/3.0);
+	R2 = CPM*Mass/Mp*Cz*pow(Z,2.0/3.0);
 
-    R = R1+R2;
+	R = R1+R2;
 
 	R = R/CF;
 
@@ -839,9 +839,9 @@ rate = exp(rate);
 
 
 
-    return R;
+	return R;
 
-    
+	
 
 
 }
@@ -871,12 +871,12 @@ int main()
 
 {
 
-    int Z,A,S;
+	int Z,A,S;
 
-    
+	
 
 
-    double Mass;
+	double Mass;
 
   
 
@@ -891,7 +891,7 @@ loop:
 
 
 
-    double M[4][19][8] ={{{938.272,0.,0.,0.,0.,0.,0.,0.},
+	double M[4][19][8] ={{{938.272,0.,0.,0.,0.,0.,0.,0.},
 
 	{1875.613,0.,0.,0.,0.,0.,0.,0.},
 
@@ -969,7 +969,7 @@ loop:
 
 	   {{0.,0.,0.,0.,0.,0.,0.,0.},
 
-	    {0.,0.,0.,0.,0.,0.,0.,0.},
+		{0.,0.,0.,0.,0.,0.,0.,0.},
 
 	{0.,0.,0.,0.,0.,0.,0.,0.},
 
@@ -1007,7 +1007,7 @@ loop:
 
 	   {{139.570,0.,0.,0.,0.,0.,0.,0.},
 
-	    {134.977,0.,0.,0.,0.,0.,0.,0.},
+		{134.977,0.,0.,0.,0.,0.,0.,0.},
 
 	{493.677,0.,0.,0.,0.,0.,0.,0.},
 
@@ -1229,7 +1229,7 @@ loop:
 
 // printf("%d  %d  %.3f  %.3f  %.3f  %.3f  %.3f\n",Z,A,Mass,answer,err_KE,momentum,err_momentum);
 
-     goto loop;
+	 goto loop;
 
 // getchar();
 
