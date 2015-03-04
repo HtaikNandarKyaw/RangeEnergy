@@ -70,11 +70,6 @@ double function0(double Mass,double Range,int Z,double D,double r)
 
 
 
-
-
-
-
-
 double Rs_function1(double LR)
 {
 
@@ -95,33 +90,17 @@ double Rs_function1(double LR)
 
 
 double Rs_function2(double LR)
-
 {
-
-
-
-
-
-
-
-	double LK = 12.499454326
-
+	
+	double LK =
+		12.499454326
 		-12.637449190*LR
-
 		+5.296813187*LR*LR
-
 		-1.163641812*LR*LR*LR
-
 		+0.151898030*LR*LR*LR*LR
-
 		-0.011803694*LR*LR*LR*LR*LR
-
 		+0.000505820*LR*LR*LR*LR*LR*LR
-
 		-0.000009219*LR*LR*LR*LR*LR*LR*LR;
-
-
-
 
 	return LK;
 
@@ -129,47 +108,24 @@ double Rs_function2(double LR)
 
 
 
-
 double Rs_function3(double LR)
-
 {
 
-
-
-
-	double LK = -0.52629642
-
+	double LK =
+		-0.52629642
 		+0.31555326*LR
-
 		+0.021856192*LR*LR
-
 		+0.0012217823*LR*LR*LR
-
 		-0.00026892371*LR*LR*LR*LR
-
 		+0.00001057489*LR*LR*LR*LR*LR;
 
-
-
-
 	return LK;
-
-
-
-
 }
 
 
 
 
 double function1(double Mass,double KE,int Z,double D,double r)
-
-
-
-
-
-
-
 {
 
 
