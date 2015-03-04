@@ -49,7 +49,7 @@
   </PostinstrumentEvent>
   <Binaries>
     <ProjBinary>
-      <Path>D:\prg\RangeEnergy\Debug\CRangeEnergy_Test.exe</Path>
+      <Path>D:\prg\RangeEnergy\Release\CRangeEnergy_Test.exe</Path>
       <ArgumentTimestamp>01/01/0001 00:00:00</ArgumentTimestamp>
       <Instrument>true</Instrument>
       <Sample>true</Sample>
@@ -59,7 +59,7 @@
       <LaunchProject>true</LaunchProject>
       <OverrideProjectSettings>false</OverrideProjectSettings>
       <LaunchMethod>Executable</LaunchMethod>
-      <ExecutablePath>D:\prg\RangeEnergy\Debug\CRangeEnergy_Test.exe</ExecutablePath>
+      <ExecutablePath>D:\prg\RangeEnergy\Release\CRangeEnergy_Test.exe</ExecutablePath>
       <StartupDirectory>D:\prg\RangeEnergy\CRangeEnergy_Test\</StartupDirectory>
       <Arguments />
       <NetAppHost>IIS</NetAppHost>
@@ -77,6 +77,11 @@
       <ProjName>CRangeEnergy_Test</ProjName>
     </ProjBinary>
   </Binaries>
+  <Reports>
+    <Report>
+      <Path>D:\prg\RangeEnergy\CRangeEnergy_Test150304.vsp</Path>
+    </Report>
+  </Reports>
   <Launches>
     <ProjBinary>
       <Path>:PB:{AA904893-3EC9-497F-8A2D-5329A7190C18}|CRangeEnergy_Test\CRangeEnergy_Test.vcxproj</Path>
