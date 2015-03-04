@@ -109,17 +109,49 @@ double CRangeEnergy::Rs_function3(double LR)
 
 
 
+
+double CRangeEnergy::FunctionCz(int Z, double B)
+{
+	if(Z==1) return 0.0;
+
+
+	const double FX = 137.0*B/Z;
+
+	if(FX<=0.5)//regionI a*FX^b
+	{
+		return  0.168550736771407*pow(FX,1.90707106569386);
+	}
+	else if(FX<=2.51)//regionII polinominal7
+	{
+		return
+			0.002624371
+			-0.081622520*FX
+			+0.643381535*FX*FX
+			-0.903648583*FX*FX*FX
+			+0.697505012*FX*FX*FX*FX
+			-0.302935572*FX*FX*FX*FX*FX
+			+0.067662990*FX*FX*FX*FX*FX*FX
+			-0.006004180*FX*FX*FX*FX*FX*FX*FX;
+	}
+	else//regionIII constant
+	{
+		return 0.217598079611354;
+	}
+
+}
+
+
+
 double CRangeEnergy::function1(double Mass,double KE,int Z,double D,double r)
 {
 	if(KE <= 0.0) return 0.0;
 
-	double FX,Cz,Rs;
+	double Rs;
 	
 	const double Mp = 938.272;
 	const double D0 = 3.815;
 	const double CPS = 1;
 	const double CPM = 1;
-	Cz = 0;
 	Rs = 0;
 	const double CF = 1;
 
@@ -234,42 +266,8 @@ double CRangeEnergy::function1(double Mass,double KE,int Z,double D,double r)
 
 
 
-	//    if(KEM<0.0001)
-	//    {
-	//        Rw = 6.2813+1.5342*LKEM-0.15997*LKEM*LKEM;
-	//        Rw = Rw-0.025245*LKEM*LKEM*LKEM;
-	//        Rw = Rs+pow(10.0,Rw);
-	//    }
-	//    else if(0.0001<=KEM)
-	//    {
-	//	Rw = function3(KEM);
-	//    }
 
-
-	// double rate =	0.507855061
-	//	 	   + 0.564228260	*LKEM
-	//	   + 1.048438525	*LKEM*LKEM
-	//	   + 0.949995982	*LKEM*LKEM*LKEM
-	//	   + 0.477578942	*LKEM*LKEM*LKEM*LKEM
-	//	   + 0.131880746	*LKEM*LKEM*LKEM*LKEM*LKEM
-	//	   + 0.018776053	*LKEM*LKEM*LKEM*LKEM*LKEM*LKEM
-	//	   + 0.001063985	*LKEM*LKEM*LKEM*LKEM*LKEM*LKEM*LKEM;
-
-
-	double LRs = log(Rs);
-
-	
-
-	//double rate =  0.8977379220
-	//	　-0.2876198390*LRs
-	//	　+0.1442899970*LRs*LRs
-	//	　-0.0493056660*LRs*LRs*LRs
-	//	　+0.0098997420*LRs*LRs*LRs*LRs
-	//	　-0.0011308070*LRs*LRs*LRs*LRs*LRs
-	//	　+0.0000682760*LRs*LRs*LRs*LRs*LRs*LRs
-	//	　-0.0000016930*LRs*LRs*LRs*LRs*LRs*LRs*LRs;
-
-
+	const double LRs = log(Rs);
 
 	double rate =
 		-0.107714711
@@ -282,48 +280,18 @@ double CRangeEnergy::function1(double Mass,double KE,int Z,double D,double r)
 		-0.000000951*LRs*LRs*LRs*LRs*LRs*LRs*LRs;
 
 
-
-
 	rate = exp(rate);
 
 
 	//double Rw;
 	//	F = (D)/(D0)+(r*(D0-D)*Rs)/((r*D0-1.0)*Rw);
-	double F = (D)/(D0)+((r*(D0-D))/(r*D0-1.0))*rate;
 
-	double Rp = Rs/F;
+	double F = (D)/(D0)+((r*(D0-D))/(r*D0-1.0))*rate;//factor for proton-range
+	double Rp = Rs/F;//range proton
 
 
-	if(Z>1.0)
-	{
-		FX = 137.0*B/Z;
 
-		if(FX<=0.5)
-		{
-			Cz = 0.168550736771407*pow(FX,1.90707106569386);
-		}
-		else if(FX<=2.51)
-		{
-			Cz =  
-				0.002624371
-				-0.081622520*FX
-				+0.643381535*FX*FX
-				-0.903648583*FX*FX*FX
-				+0.697505012*FX*FX*FX*FX
-				-0.302935572*FX*FX*FX*FX*FX
-				+0.067662990*FX*FX*FX*FX*FX*FX
-				-0.006004180*FX*FX*FX*FX*FX*FX*FX;
-		}
-		else
-		{
-			Cz = 0.217598079611354;
-		}
-	}
-	else
-	{
-		Cz = 0.0;
-	}
-
+	double Cz = FunctionCz(Z, B);
 	double R1 = CPS*Rp/(Z*Z)/Mp*Mass;
 	double R2 = CPM*Mass/Mp*Cz*pow(Z,2.0/3.0);
 	double R = (R1+R2)/CF;
