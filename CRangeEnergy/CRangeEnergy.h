@@ -9,9 +9,10 @@ public:
 
 	double function0(double Mass,double Range,int Z,double D,double r);
 	double function1(double Mass,double KE,int Z,double D,double r);
-	double CRangeEnergy::Rs_function1(double LR);
-	double CRangeEnergy::Rs_function2(double LR);
-	double CRangeEnergy::Rs_function3(double LR);
+	double Rs_function1(double LR);
+	double Rs_function2(double LR);
+	double Rs_function3(double LR);
+	double FunctionCz(int Z, double B);
 
 	double rate_grobal,Rp_grobal,Rs_grobal;
 
