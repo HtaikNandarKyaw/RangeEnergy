@@ -6,6 +6,9 @@
 #pragma warning(disable : 4996)
 
 
+static const double LMp = log(938.272);
+
+
 
 CRangeEnergy::CRangeEnergy(void)
 {
@@ -17,20 +20,7 @@ CRangeEnergy::~CRangeEnergy(void)
 }
 
 
-
-double function0(double Mass,double Range,int Z,double D,double r);
-
-double function1(double Mass,double KE,int Z,double D,double r);
-
-//double function2(double KEM);
-//double function3(double KEM);
-
-
-double rate_grobal,Rp_grobal,Rs_grobal;
-double LMp = log(938.272);
-
-
-double function0(double Mass,double Range,int Z,double D,double r)
+double CRangeEnergy::function0(double Mass,double Range,int Z,double D,double r)
 {
 	double R = 0.00;
 	double R0 = 0.00;
@@ -68,9 +58,7 @@ double function0(double Mass,double Range,int Z,double D,double r)
 }
 
 
-
-
-double Rs_function1(double LR)
+double CRangeEnergy::Rs_function1(double LR)
 {
 
 	double LK =
@@ -87,9 +75,7 @@ double Rs_function1(double LR)
 }
 
 
-
-
-double Rs_function2(double LR)
+double CRangeEnergy::Rs_function2(double LR)
 {
 	
 	double LK =
@@ -107,8 +93,7 @@ double Rs_function2(double LR)
 }
 
 
-
-double Rs_function3(double LR)
+double CRangeEnergy::Rs_function3(double LR)
 {
 
 	double LK =
@@ -123,17 +108,15 @@ double Rs_function3(double LR)
 }
 
 
-
-
-double function1(double Mass,double KE,int Z,double D,double r)
+double CRangeEnergy::function1(double Mass,double KE,int Z,double D,double r)
 {
 	if(KE <= 0.0) return 0.0;
 
-	double R,KEM,E,P,B,Rp,FX,Cz,Mp,D0,Rs,Rw,F,R1,R2,CPS,CPM,CF;
+	double R,KEM,E,P,B,Rp,FX,Cz,Rs,Rw,F,R1,R2,CPS,CPM,CF;
 	double LKEM,MKEM;
 	
-	Mp = 938.272;
-	D0 = 3.815;
+	const double Mp = 938.272;
+	const double D0 = 3.815;
 	CPS = 1;
 	CPM = 1;
 	Cz = 0;
