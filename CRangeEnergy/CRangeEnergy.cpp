@@ -6,8 +6,9 @@
 #pragma warning(disable : 4996)
 
 
-static const double LMp = log(938.272);
-
+static const double Mp = 938.272;//proton mass
+static const double LMp = log(Mp);//log(proton mass)
+static const double D0 = 3.815;//density of standard emulsion
 
 
 CRangeEnergy::CRangeEnergy(void)
@@ -116,11 +117,11 @@ double CRangeEnergy::FunctionCz(int Z, double beta)
 
 	const double FX = 137.0*beta/Z;
 
-	if(FX<=0.5)//regionI a*FX^b
+	if(FX<=0.5)//regionI: a*FX^b
 	{
 		return  0.168550736771407*pow(FX,1.90707106569386);
 	}
-	else if(FX<=2.51)//regionII polinominal7
+	else if(FX<=2.51)//regionII: polinominal7
 	{
 		return
 			0.002624371
@@ -132,7 +133,7 @@ double CRangeEnergy::FunctionCz(int Z, double beta)
 			+0.067662990*FX*FX*FX*FX*FX*FX
 			-0.006004180*FX*FX*FX*FX*FX*FX*FX;
 	}
-	else//regionIII constant
+	else//regionIII: constant
 	{
 		return 0.217598079611354;
 	}
@@ -146,8 +147,6 @@ double CRangeEnergy::function1(double Mass,double KE,int Z,double D,double r)
 	if(KE <= 0.0) return 0.0;
 
 	
-	const double Mp = 938.272;//proton mass
-	const double D0 = 3.815;//density of standard emulsion
 	const double CPS = 1;//correction factor for S
 	const double CPM = 1;//correction factor for M
 	const double CF = 1;//correction factor
@@ -160,7 +159,8 @@ double CRangeEnergy::function1(double Mass,double KE,int Z,double D,double r)
 	double MKEM = log(KE*Mp/Mass);//log10(K.E. * protonmass / ThisMass)
 
 
-	double Rs = 0;
+	double Rs = 0;//proton range in standard emulsion
+	double dd = 0.00001;//precision
 
 	if(KEM < 0.0001)
 	{
@@ -170,7 +170,6 @@ double CRangeEnergy::function1(double Mass,double KE,int Z,double D,double r)
 	{
 
 		double d0 = 3.0000; 
-		double dd = 0.00001;
 		double y0 = Rs_function1(d0);
 
 
@@ -202,7 +201,6 @@ double CRangeEnergy::function1(double Mass,double KE,int Z,double D,double r)
 	{
 
 		double d0 = 6.0000; 
-		double dd = 0.00001;
 		double y0 = Rs_function2(d0);
 
 
@@ -234,7 +232,6 @@ double CRangeEnergy::function1(double Mass,double KE,int Z,double D,double r)
 	{
 
 		double d0 = 10.0000; 
-		double dd = 0.00001;
 		double y0 = Rs_function3(d0);
 
 		if(y0 < MKEM)
