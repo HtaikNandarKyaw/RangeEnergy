@@ -110,11 +110,11 @@ double CRangeEnergy::Rs_function3(double LR)
 
 
 
-double CRangeEnergy::FunctionCz(int Z, double B)
+double CRangeEnergy::FunctionCz(int Z, double beta)
 {
 	if(Z==1) return 0.0;
 
-	const double FX = 137.0*B/Z;
+	const double FX = 137.0*beta/Z;
 
 	if(FX<=0.5)//regionI a*FX^b
 	{
@@ -155,7 +155,7 @@ double CRangeEnergy::function1(double Mass,double KE,int Z,double D,double r)
 	double KEM = KE/Mass;// KE/mass
 	double E = Mass + KE;//total energy
 	double P = sqrt(E*E-Mass*Mass);//momentum
-	double B = P/E;//beta
+	double beta = P/E;//beta of particle
 	double LKEM = log10(KEM);//log10(K.E. / ThisMass)
 	double MKEM = log(KE*Mp/Mass);//log10(K.E. * protonmass / ThisMass)
 
@@ -292,7 +292,7 @@ double CRangeEnergy::function1(double Mass,double KE,int Z,double D,double r)
 
 
 
-	double Cz = FunctionCz(Z, B);
+	double Cz = FunctionCz(Z, beta);
 	double R1 = CPS*Rp/(Z*Z)/Mp*Mass;
 	double R2 = CPM*Mass/Mp*Cz*pow(Z,2.0/3.0);
 	double R = (R1+R2)/CF;
