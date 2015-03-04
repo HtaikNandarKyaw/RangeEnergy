@@ -25,6 +25,8 @@ CRangeEnergy::~CRangeEnergy(void)
 
 double CRangeEnergy::GetKineticEnergyFromRange(double Mass,double Range,int Z,double densityEM)
 {
+	if( Range==0.0 ) return 0.0;
+
 	double R = 0.00;
 	double R0 = 0.00;
 	double KE = 0.00;
