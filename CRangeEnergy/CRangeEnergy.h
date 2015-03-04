@@ -13,7 +13,8 @@ public:
 	double Rs_function2(double LR);
 	double Rs_function3(double LR);
 	double FunctionCz(int Z, double B);
-
+	double FunctionRs(double KEM, double MKEM);
+	double FunctionRsRwRatio(double Rs);
 
 
 };

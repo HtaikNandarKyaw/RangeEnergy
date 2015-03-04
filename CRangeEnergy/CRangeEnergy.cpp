@@ -52,11 +52,12 @@ double CRangeEnergy::function0(double Mass,double Range,int Z,double D,double r)
 		KE0 = KE;
 	}//while
 
-	double E = Mass+KE;
-	double P = sqrt(E*E-Mass*Mass);
+	//double E = Mass+KE;
+	//double P = sqrt(E*E-Mass*Mass);
 
 	return KE;
 }
+
 
 
 double CRangeEnergy::Rs_function1(double LR)
@@ -110,6 +111,86 @@ double CRangeEnergy::Rs_function3(double LR)
 
 
 
+double CRangeEnergy::FunctionRs(double KE, double Mass){
+
+	double KEM = KE/Mass;// KE/mass
+	//double LKEM = log10(KEM);//log10(K.E. / ThisMass)
+	double MKEM = log(KE*Mp/Mass);//log10(K.E. * protonmass / ThisMass)
+
+	double dd = 0.00001;//step for italation
+	double d0;//
+	double y0;//
+	double Rs;
+
+
+	if(KEM < 0.0001)
+	{
+
+		Rs = 479.210*pow(KEM,0.675899);
+
+	}
+	else if(MKEM < 1.930606146327)
+	{
+
+		d0 = 3.0000; 
+		y0 = Rs_function1(d0);
+		while(abs(MKEM-y0)>0.00001)
+		{
+			(MKEM > y0)?  d0 = d0 + dd	 : 	d0 = d0 - dd;
+			y0 = Rs_function1(d0);
+		}
+		Rs = exp(d0);
+
+	}
+	else if(MKEM < 37.156634656805)
+	{
+
+		d0 = 6.0000; 
+		y0 = Rs_function2(d0);
+		while(abs(MKEM-y0)>0.00001)
+		{
+			(MKEM > y0)?  d0 = d0 + dd	 : 	d0 = d0 - dd;
+			y0 = Rs_function2(d0);
+		}
+		Rs = exp(d0);
+	}
+	else
+	{
+
+		d0 = 10.0000;
+		y0 = Rs_function3(d0);
+		while(abs(MKEM-y0)>0.00001)
+		{
+			(MKEM > y0)?  d0 = d0 + dd	 : 	d0 = d0 - dd;
+			y0 = Rs_function3(d0);
+		}
+		Rs = exp(d0);
+	}
+
+	return Rs;
+
+}
+
+
+
+double CRangeEnergy::FunctionRsRwRatio(double Rs)
+{
+	const double LRs = log(Rs);
+
+	double rate =
+		-0.107714711
+		-0.332543998*LRs
+		+0.141029694*LRs*LRs
+		-0.044679440*LRs*LRs*LRs
+		+0.008162611*LRs*LRs*LRs*LRs
+		-0.000830409*LRs*LRs*LRs*LRs*LRs
+		+0.000044038*LRs*LRs*LRs*LRs*LRs*LRs
+		-0.000000951*LRs*LRs*LRs*LRs*LRs*LRs*LRs;
+
+	return  exp(rate);
+}
+
+
 
 double CRangeEnergy::FunctionCz(int Z, double beta)
 {
@@ -142,156 +223,29 @@ double CRangeEnergy::FunctionCz(int Z, double beta)
 
 
 
-double CRangeEnergy::function1(double Mass,double KE,int Z,double D,double r)
+double CRangeEnergy::function1(double Mass, double KE, int Z, double densityEM, double r)
 {
 	if(KE <= 0.0) return 0.0;
 
-	
-	const double CPS = 1;//correction factor for S
-	const double CPM = 1;//correction factor for M
+	const double CPS = 1;//correction factor for 1st term
+	const double CPM = 1;//correction factor for 2nd term
 	const double CF = 1;//correction factor
 
-	double KEM = KE/Mass;// KE/mass
+
+	double Rs = FunctionRs(KE, Mass);//proton range in standard emulsion
+	double ratio = FunctionRsRwRatio(Rs);// Rs/Rw ratio
+	double F = densityEM/D0 + ((r*(D0-densityEM))/(r*D0-1.0))*ratio;//factor for proton-range
+	double Rp = Rs/F;//proton range in this emulsion
+
+
 	double E = Mass + KE;//total energy
-	double P = sqrt(E*E-Mass*Mass);//momentum
+	double P = sqrt(E*E-Mass*Mass);//momentum norm
 	double beta = P/E;//beta of particle
-	double LKEM = log10(KEM);//log10(K.E. / ThisMass)
-	double MKEM = log(KE*Mp/Mass);//log10(K.E. * protonmass / ThisMass)
-
-
-	double Rs = 0;//proton range in standard emulsion
-	double dd = 0.00001;//precision
-
-	if(KEM < 0.0001)
-	{
-		Rs = 479.210*pow(KEM,0.675899);
-	}
-	else if(MKEM < 1.930606146327)
-	{
-
-		double d0 = 3.0000; 
-		double y0 = Rs_function1(d0);
-
-
-		if(y0 < MKEM)
-		{
-
-			while(abs(MKEM-y0)>0.00001){
-				d0 = d0 + dd;
-				y0 = Rs_function1(d0);
-			}
-
-			Rs = exp(d0);
-
-		}
-		else if(MKEM < y0)
-		{
-
-			while(abs(MKEM-y0)>0.00001)
-			{
-				d0 = d0 - dd;
-				y0 = Rs_function1(d0);
-			}
-
-			Rs = exp(d0);
-		}
-
-	}
-	else if(MKEM < 37.156634656805)
-	{
-
-		double d0 = 6.0000; 
-		double y0 = Rs_function2(d0);
-
-
-		if(y0 < MKEM)
-		{
-
-			while(abs(MKEM-y0)>0.00001)
-			{
-				d0 = d0 + dd;
-				y0 = Rs_function2(d0);
-			}
-
-			Rs = exp(d0);
-		}
-		else if(MKEM < y0)
-		{
-			while(abs(MKEM-y0)>0.00001)
-			{
-				d0 = d0 - dd;
-				y0 = Rs_function2(d0);
-			}
-
-			Rs = exp(d0);
-		}
-
-
-	}
-	else
-	{
-
-		double d0 = 10.0000; 
-		double y0 = Rs_function3(d0);
-
-		if(y0 < MKEM)
-		{
-
-			while(abs(MKEM-y0)>0.00001)
-			{
-				d0 = d0 + dd;
-				y0 = Rs_function3(d0);
-			}
-
-			Rs = exp(d0);
-		}
-		else if(MKEM < y0)
-		{
-
-			while(abs(MKEM-y0)>0.00001)
-			{
-				d0 = d0 - dd;
-				y0 = Rs_function3(d0);
-			}
-
-			Rs = exp(d0);
-
-		}
-
-	}
-
-
-
-
-	const double LRs = log(Rs);
-
-	double rate;// Rs/Rw ratio
-
-	rate =
-		-0.107714711
-		-0.332543998*LRs
-		+0.141029694*LRs*LRs
-		-0.044679440*LRs*LRs*LRs
-		+0.008162611*LRs*LRs*LRs*LRs
-		-0.000830409*LRs*LRs*LRs*LRs*LRs
-		+0.000044038*LRs*LRs*LRs*LRs*LRs*LRs
-		-0.000000951*LRs*LRs*LRs*LRs*LRs*LRs*LRs;
-
-
-	rate = exp(rate);
-
-
-	//double Rw;
-	//	F = (D)/(D0)+(r*(D0-D)*Rs)/((r*D0-1.0)*Rw);
-
-	double F = (D)/(D0)+((r*(D0-D))/(r*D0-1.0))*rate;//factor for proton-range
-	double Rp = Rs/F;//range proton
-
-
-
 	double Cz = FunctionCz(Z, beta);
-	double R1 = CPS*Rp/(Z*Z)/Mp*Mass;
-	double R2 = CPM*Mass/Mp*Cz*pow(Z,2.0/3.0);
+
+
+	double R1 = CPS * (Mass/Mp) / (Z*Z) * Rp;
+	double R2 = CPM * (Mass/Mp) * pow(Z,2.0/3.0) * Cz;
 	double R = (R1+R2)/CF;
 
 	return R;
