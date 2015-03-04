@@ -6,9 +6,6 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CRangeEnergy_Test", "CRangeEnergy_Test\CRangeEnergy_Test.vcxproj", "{AA904893-3EC9-497F-8A2D-5329A7190C18}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7CDA8061-312B-4465-979C-FE3DF954513E}"
-	ProjectSection(SolutionItems) = preProject
-		CRangeEnergy\Range_Energy_Relation.cpp = CRangeEnergy\Range_Energy_Relation.cpp
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
