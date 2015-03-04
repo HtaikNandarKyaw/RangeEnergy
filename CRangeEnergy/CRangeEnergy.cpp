@@ -76,39 +76,19 @@ double function0(double Mass,double Range,int Z,double D,double r)
 
 
 double Rs_function1(double LR)
-
 {
 
-
-
-
-
-
-
-	double LK = -2.288460778
-
+	double LK =
+		-2.288460778
 		+1.382747508*LR
-
 		-0.439300692*LR*LR
-
 		+0.162697682*LR*LR*LR
-
 		-0.037735480*LR*LR*LR*LR
-
 		+0.005152047*LR*LR*LR*LR*LR
-
 		-0.000373872*LR*LR*LR*LR*LR*LR
-
 		+0.000010917*LR*LR*LR*LR*LR*LR*LR;
 
-
-
-
 	return LK;
-
-
-
-
 }
 
 
