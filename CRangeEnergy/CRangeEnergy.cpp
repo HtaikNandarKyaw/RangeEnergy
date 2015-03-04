@@ -108,27 +108,27 @@ double CRangeEnergy::Rs_function3(double LR)
 }
 
 
+
 double CRangeEnergy::function1(double Mass,double KE,int Z,double D,double r)
 {
 	if(KE <= 0.0) return 0.0;
 
-	double R,KEM,E,P,B,Rp,FX,Cz,Rs,Rw,F,R1,R2,CPS,CPM,CF;
-	double LKEM,MKEM;
+	double FX,Cz,Rs;
 	
 	const double Mp = 938.272;
 	const double D0 = 3.815;
-	CPS = 1;
-	CPM = 1;
+	const double CPS = 1;
+	const double CPM = 1;
 	Cz = 0;
 	Rs = 0;
-	CF = 1;
+	const double CF = 1;
 
-	KEM = KE/Mass;
-	E = Mass + KE;
-	P = sqrt(E*E-Mass*Mass);
-	B = P/E;
-	LKEM = log10(KEM);
-	MKEM = log(KE*938.272/Mass);
+	double KEM = KE/Mass;
+	double E = Mass + KE;
+	double P = sqrt(E*E-Mass*Mass);
+	double B = P/E;
+	double LKEM = log10(KEM);
+	double MKEM = log(KE*938.272/Mass);
 
 
 	if(KEM < 0.0001)
@@ -287,11 +287,11 @@ double CRangeEnergy::function1(double Mass,double KE,int Z,double D,double r)
 	rate = exp(rate);
 
 
-
+	//double Rw;
 	//	F = (D)/(D0)+(r*(D0-D)*Rs)/((r*D0-1.0)*Rw);
-	F = (D)/(D0)+((r*(D0-D))/(r*D0-1.0))*rate;
+	double F = (D)/(D0)+((r*(D0-D))/(r*D0-1.0))*rate;
 
-	Rp = Rs/F;
+	double Rp = Rs/F;
 
 
 	if(Z>1.0)
@@ -324,11 +324,9 @@ double CRangeEnergy::function1(double Mass,double KE,int Z,double D,double r)
 		Cz = 0.0;
 	}
 
-	R1 = CPS*Rp/(Z*Z)/Mp*Mass;
-	R2 = CPM*Mass/Mp*Cz*pow(Z,2.0/3.0);
-	R = R1+R2;
-	R = R/CF;
-
+	double R1 = CPS*Rp/(Z*Z)/Mp*Mass;
+	double R2 = CPM*Mass/Mp*Cz*pow(Z,2.0/3.0);
+	double R = (R1+R2)/CF;
 
 	rate_grobal = rate;
 	Rp_grobal = Rp;
