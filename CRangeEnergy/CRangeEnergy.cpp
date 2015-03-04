@@ -114,7 +114,6 @@ double CRangeEnergy::FunctionCz(int Z, double B)
 {
 	if(Z==1) return 0.0;
 
-
 	const double FX = 137.0*B/Z;
 
 	if(FX<=0.5)//regionI a*FX^b
@@ -146,22 +145,22 @@ double CRangeEnergy::function1(double Mass,double KE,int Z,double D,double r)
 {
 	if(KE <= 0.0) return 0.0;
 
-	double Rs;
 	
-	const double Mp = 938.272;
-	const double D0 = 3.815;
-	const double CPS = 1;
-	const double CPM = 1;
-	Rs = 0;
-	const double CF = 1;
+	const double Mp = 938.272;//proton mass
+	const double D0 = 3.815;//density of standard emulsion
+	const double CPS = 1;//correction factor for S
+	const double CPM = 1;//correction factor for M
+	const double CF = 1;//correction factor
 
-	double KEM = KE/Mass;
-	double E = Mass + KE;
-	double P = sqrt(E*E-Mass*Mass);
-	double B = P/E;
-	double LKEM = log10(KEM);
-	double MKEM = log(KE*938.272/Mass);
+	double KEM = KE/Mass;// KE/mass
+	double E = Mass + KE;//total energy
+	double P = sqrt(E*E-Mass*Mass);//momentum
+	double B = P/E;//beta
+	double LKEM = log10(KEM);//log10(K.E. / ThisMass)
+	double MKEM = log(KE*Mp/Mass);//log10(K.E. * protonmass / ThisMass)
 
+
+	double Rs = 0;
 
 	if(KEM < 0.0001)
 	{
@@ -269,7 +268,9 @@ double CRangeEnergy::function1(double Mass,double KE,int Z,double D,double r)
 
 	const double LRs = log(Rs);
 
-	double rate =
+	double rate;// Rs/Rw ratio
+
+	rate =
 		-0.107714711
 		-0.332543998*LRs
 		+0.141029694*LRs*LRs
@@ -295,10 +296,6 @@ double CRangeEnergy::function1(double Mass,double KE,int Z,double D,double r)
 	double R1 = CPS*Rp/(Z*Z)/Mp*Mass;
 	double R2 = CPM*Mass/Mp*Cz*pow(Z,2.0/3.0);
 	double R = (R1+R2)/CF;
-
-	rate_grobal = rate;
-	Rp_grobal = Rp;
-	Rs_grobal = Rs;
 
 	return R;
 }

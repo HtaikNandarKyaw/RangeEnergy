@@ -14,7 +14,6 @@ public:
 	double Rs_function3(double LR);
 	double FunctionCz(int Z, double B);
 
-	double rate_grobal,Rp_grobal,Rs_grobal;
 
 
 };
