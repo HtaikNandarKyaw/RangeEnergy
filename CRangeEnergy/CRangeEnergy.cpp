@@ -131,8 +131,7 @@ double function1(double Mass,double KE,int Z,double D,double r)
 
 	double R,KEM,E,P,B,Rp,FX,Cz,Mp,D0,Rs,Rw,F,R1,R2,CPS,CPM,CF;
 	double LKEM,MKEM;
-
-
+	
 	Mp = 938.272;
 	D0 = 3.815;
 	CPS = 1;
@@ -149,30 +148,16 @@ double function1(double Mass,double KE,int Z,double D,double r)
 	MKEM = log(KE*938.272/Mass);
 
 
-
-
 	if(KEM < 0.0001)
-
 	{
-
 		Rs = 479.210*pow(KEM,0.675899);
-
 	}
-
 	else if(MKEM < 1.930606146327)
-
 	{
-
-
-
 
 		double d0 = 3.0000; 
-
 		double dd = 0.00001;
-
 		double y0 = Rs_function1(d0);
-
-
 
 
 		if(y0 < MKEM)
@@ -190,22 +175,17 @@ double function1(double Mass,double KE,int Z,double D,double r)
 		{
 
 			while(abs(MKEM-y0)>0.00001)
-
 			{
-
 				d0 = d0 - dd;
 				y0 = Rs_function1(d0);
 			}
 
 			Rs = exp(d0);
-
 		}
 
 	}
 	else if(MKEM < 37.156634656805)
 	{
-
-
 
 		double d0 = 6.0000; 
 		double dd = 0.00001;
@@ -223,12 +203,10 @@ double function1(double Mass,double KE,int Z,double D,double r)
 
 			Rs = exp(d0);
 		}
-
 		else if(MKEM < y0)
 		{
 			while(abs(MKEM-y0)>0.00001)
 			{
-
 				d0 = d0 - dd;
 				y0 = Rs_function2(d0);
 			}
@@ -237,69 +215,39 @@ double function1(double Mass,double KE,int Z,double D,double r)
 		}
 
 
-
-
 	}
 	else
 	{
-
-
-
 
 		double d0 = 10.0000; 
 		double dd = 0.00001;
 		double y0 = Rs_function3(d0);
 
 		if(y0 < MKEM)
-
 		{
 
 			while(abs(MKEM-y0)>0.00001)
-
 			{
-
 				d0 = d0 + dd;
-
 				y0 = Rs_function3(d0);
-
 			}
 
 			Rs = exp(d0);
-
 		}
-
-
-
-
 		else if(MKEM < y0)
-
 		{
 
 			while(abs(MKEM-y0)>0.00001)
-
 			{
-
 				d0 = d0 - dd;
-
 				y0 = Rs_function3(d0);
-
 			}
 
 			Rs = exp(d0);
 
 		}
-
-
-
-
-
-
 
 	}
-
-
-
-
 
 
 
@@ -315,9 +263,6 @@ double function1(double Mass,double KE,int Z,double D,double r)
 	//    }
 
 
-
-
-
 	// double rate =	0.507855061
 	//	 	   + 0.564228260	*LKEM
 	//	   + 1.048438525	*LKEM*LKEM
@@ -326,7 +271,6 @@ double function1(double Mass,double KE,int Z,double D,double r)
 	//	   + 0.131880746	*LKEM*LKEM*LKEM*LKEM*LKEM
 	//	   + 0.018776053	*LKEM*LKEM*LKEM*LKEM*LKEM*LKEM
 	//	   + 0.001063985	*LKEM*LKEM*LKEM*LKEM*LKEM*LKEM*LKEM;
-
 
 
 	double LRs = log(Rs);
@@ -341,8 +285,6 @@ double function1(double Mass,double KE,int Z,double D,double r)
 	//	Å@-0.0011308070*LRs*LRs*LRs*LRs*LRs
 	//	Å@+0.0000682760*LRs*LRs*LRs*LRs*LRs*LRs
 	//	Å@-0.0000016930*LRs*LRs*LRs*LRs*LRs*LRs*LRs;
-
-
 
 
 
@@ -366,7 +308,6 @@ double function1(double Mass,double KE,int Z,double D,double r)
 	//	F = (D)/(D0)+(r*(D0-D)*Rs)/((r*D0-1.0)*Rw);
 	F = (D)/(D0)+((r*(D0-D))/(r*D0-1.0))*rate;
 
-
 	Rp = Rs/F;
 
 
@@ -380,7 +321,8 @@ double function1(double Mass,double KE,int Z,double D,double r)
 		}
 		else if(FX<=2.51)
 		{
-			Cz =  0.002624371
+			Cz =  
+				0.002624371
 				-0.081622520*FX
 				+0.643381535*FX*FX
 				-0.903648583*FX*FX*FX
@@ -414,8 +356,7 @@ double function1(double Mass,double KE,int Z,double D,double r)
 
 
 
-
-
+/*
 int main()
 {
 	int Z,A,S;
@@ -652,4 +593,4 @@ loop:
 
 	return 0;
 } 
-
+*/
