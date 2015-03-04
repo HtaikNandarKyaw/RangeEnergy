@@ -27,71 +27,50 @@ double function1(double Mass,double KE,int Z,double D,double r);
 
 
 double rate_grobal,Rp_grobal,Rs_grobal;
-
-
-
-
-
+double LMp = log(938.272);
 
 
 double function0(double Mass,double Range,int Z,double D,double r)
 {
+	double R = 0.00;
+	double R0 = 0.00;
+	double KE = 0.00;
+	double KE0 = 0.00;
+	double dKE = 10.0;
 
-	double R,R0,KE,KE0,dKE,E,P;
+	while(dKE>0.00005){
 
-	R = 0.00;
-	R0 = 0.00;
-	KE = 0.00;
-	KE0 = 0.00;
-	dKE = 10.0;
+		(Range > R0)?  KE = KE + dKE : 	KE = KE - dKE;
 
-	while(dKE>0.00005)
-	{
-
-		if(Range > R0){
-			KE = KE + dKE;
-		}else{
-			KE = KE - dKE;
-		}
-
-
-		if(KE<=0){
-			KE = 0.0;
-		}
+		if(KE<=0) KE = 0.0;
 
 		double return_R = function1(Mass,KE,Z,D,r);
 
-
 		if((return_R>=Range && Range>=R0) || (return_R<=Range && Range<=R0))
 		{
-
 			dKE = dKE/10.0;
 			KE = KE0+(KE-KE0)*(Range-R0)/(return_R-R0); 
-
-			if(KE<=0){
-				KE = 0.0;
-			}
-
+			if(KE<=0) KE = 0.0;
 			R0 = function1(Mass,KE,Z,D,r);
-		}else{
+		}
+		else
+		{
 			R0 = return_R;
 		}
 
 		KE0 = KE;
+	}//while
 
-	}
-
-	E = Mass+KE;
-	P = sqrt(E*E-Mass*Mass);
+	double E = Mass+KE;
+	double P = sqrt(E*E-Mass*Mass);
 
 	return KE;
-
 }
 
 
 
 
-double LMp = log(938.272);
+
 
 
 
