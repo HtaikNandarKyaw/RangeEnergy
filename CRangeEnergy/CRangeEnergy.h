@@ -7,8 +7,8 @@ public:
 	CRangeEnergy(void);
 	~CRangeEnergy(void);
 
-	double function0(double Mass,double Range,int Z,double D,double r);
-	double function1(double Mass,double KE,int Z,double D,double r);
+	double GetKineticEnergyFromRange(double Mass,double Range,int Z,double densityEM);
+	double GetRangeFromKineticEnergy(double Mass,double KE,int Z,double densityEM);
 	double Rs_function1(double LR);
 	double Rs_function2(double LR);
 	double Rs_function3(double LR);

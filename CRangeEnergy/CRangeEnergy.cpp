@@ -9,6 +9,8 @@
 static const double Mp = 938.272;//proton mass
 static const double LMp = log(Mp);//log(proton mass)
 static const double D0 = 3.815;//density of standard emulsion
+static const double r = 0.884;//
+
 
 
 CRangeEnergy::CRangeEnergy(void)
@@ -21,7 +23,7 @@ CRangeEnergy::~CRangeEnergy(void)
 }
 
 
-double CRangeEnergy::function0(double Mass,double Range,int Z,double D,double r)
+double CRangeEnergy::GetKineticEnergyFromRange(double Mass,double Range,int Z,double densityEM)
 {
 	double R = 0.00;
 	double R0 = 0.00;
@@ -35,14 +37,14 @@ double CRangeEnergy::function0(double Mass,double Range,int Z,double D,double r)
 
 		if(KE<=0) KE = 0.0;
 
-		double return_R = function1(Mass,KE,Z,D,r);
+		double return_R = GetRangeFromKineticEnergy(Mass,KE,Z,densityEM);
 
 		if((return_R>=Range && Range>=R0) || (return_R<=Range && Range<=R0))
 		{
 			dKE = dKE/10.0;
 			KE = KE0+(KE-KE0)*(Range-R0)/(return_R-R0); 
 			if(KE<=0) KE = 0.0;
-			R0 = function1(Mass,KE,Z,D,r);
+			R0 = GetRangeFromKineticEnergy(Mass,KE,Z,densityEM);
 		}
 		else
 		{
@@ -223,7 +225,7 @@ double CRangeEnergy::FunctionCz(int Z, double beta)
 
 
 
-double CRangeEnergy::function1(double Mass, double KE, int Z, double densityEM, double r)
+double CRangeEnergy::GetRangeFromKineticEnergy(double Mass, double KE, int Z, double densityEM)
 {
 	if(KE <= 0.0) return 0.0;
 

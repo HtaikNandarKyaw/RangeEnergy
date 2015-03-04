@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CRangeEnergy.cpp" />
+    <ClCompile Include="Range_Energy_Relation.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
