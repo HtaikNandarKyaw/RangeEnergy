@@ -3,7 +3,7 @@
 
 #include "CRangeEnergy.h"
 
-#pragma warning(disable : 4996)
+//#pragma warning(disable : 4996)
 
 
 static const double Mp = 938.272;//proton mass
