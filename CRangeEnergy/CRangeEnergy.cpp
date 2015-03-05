@@ -119,9 +119,9 @@ double CRangeEnergy::FunctionRs(double KE, double Mass){
 	double MKEM = log(KE*Mp/Mass);//log10(K.E. * protonmass / ThisMass)
 
 	double dd = 0.00001;//step for italation
-	double d0;
-	double y0;
-	double Rs;
+	double d0;//tempval
+	double y0;//tempval
+	double Rs;//range in standard emulsion
 
 
 	if(KEM < 0.0001)
@@ -186,7 +186,7 @@ double CRangeEnergy::FunctionRsRwRatio(double Rs)
 		+0.008162611*LRs*LRs*LRs*LRs
 		-0.000830409*LRs*LRs*LRs*LRs*LRs
 		+0.000044038*LRs*LRs*LRs*LRs*LRs*LRs
-		-0.000000951*LRs*LRs*LRs*LRs*LRs*LRs*LRs;//fitted by D.Tovee and Gajewski
+		-0.000000951*LRs*LRs*LRs*LRs*LRs*LRs*LRs;//fitted by Dr.Tovee and Dr.Gajewski
 
 	return  exp(rate);
 }
@@ -233,7 +233,7 @@ double CRangeEnergy::GetRangeFromKineticEnergy(double Mass, double KE, int Z, do
 	const double CF = 1;//correction factor
 
 
-	double Rs = FunctionRs(KE, Mass);//proton range in standard emulsion
+	double Rs = FunctionRs(KE, Mass);//range in standard emulsion
 	double ratio = FunctionRsRwRatio(Rs);// Rs/Rw ratio
 	double F = densityEM/D0 + ((r*(D0-densityEM))/(r*D0-1.0))*ratio;//factor for proton-range
 	double Rp = Rs/F;//proton range in this emulsion
@@ -246,7 +246,7 @@ double CRangeEnergy::GetRangeFromKineticEnergy(double Mass, double KE, int Z, do
 
 
 	double R1 = CPS * (Mass/Mp) / (Z*Z) * Rp;
-	double R2 = CPM * (Mass/Mp) * pow(Z,2.0/3.0) * Cz;
+	double R2 = CPM * (Mass/Mp) * pow(Z,2.0/3.0) * Cz;//R_ext
 	double R = (R1+R2)/CF;
 
 	return R;
